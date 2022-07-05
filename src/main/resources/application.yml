@@ -1,0 +1,74 @@
+server:
+  port: 8090
+  servlet:
+    #    配置session过期时间
+    session:
+      timeout: PT50M
+
+spring:
+  servlet:
+    #配置上传文件
+    multipart:
+      max-file-size: 2MB
+
+  datasource:
+    username: root
+    password: 111111
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/mybatis_market?userSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    type: com.alibaba.druid.pool.DruidDataSource #表示使用的第三方数据源类型
+
+  thymeleaf:
+    cache: false #关闭缓存
+    prefix: classpath:/views/ #放置模板的目录。templates
+    mode: HTML
+    encoding: utf-8
+    servlet:
+      content-type: text/html
+
+  devtools:
+    livereload:
+      enabled: true
+      port: 35729
+    restart:
+      enabled: true
+      additional-paths: src/main/java #监听这个路径下面的代码，如果发生变化就重启springboot
+      exclude: WEB-INF/** #这个路径下发生变化,不重启
+  #mybatis:
+  #  mapper-locations: 'classpath*:mapper/**/*Mapper.xml'
+  ##分页
+  #pagehelper:
+  #  helper-dialect: mysql
+  #  reasonable: true
+  #  support-methods-arguments: true
+  #  params: count=countSql
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
+    mapper-location: classpath*:mapper/*.xml
+
+#日志
+logging:
+  level:
+    #系统的信息,使用info的级别输出
+    root: info
+    #springbootlession包名,自己程序的输出级别
+    springbootlession: debug
+
+info:
+  app: 我的第一个springboot应用
+  author: 作者
+management:
+  endpoints:
+    web:
+      exposure:
+        #加载所有的默认端点
+        include: '*'
+  endpoint:
+    health:
+      #show-details: never #不显示健康度的细节
+      show-details: always #显示健康度的细节，默认是不显示细节
+    shutdown:
+      enabled: false #关闭指定的端点
